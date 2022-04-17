@@ -1,34 +1,41 @@
 데이터 적재(로딩)->데이터의 관찰(탐색)EDA->데이터의 분할->데이터 전처리->머신러닝 모델의 구축
-데이터 전처리를 나중에 하는 이유는?		????????????????????????
+데이터 전처리를 나중에 하는 이유는?		3주차 2시 8분쯤. 0과 1사이로 압축시켜놓고 데이터를 처리하면 안됨. 블랙프라이데이 현상은 설명 못하는것과 같은 원리. 
+					학습의 성능은 올라갈 수 있으나 실전에서 망함. 답지를 먼저 봤냐 안봤냐.
+					테스트까지 전부 포함해서 전처리를하면 정답도 알고있는거니깐 답을 알고 시험을 본거임.
+					모르는 문제는 못함...
+앙상블을 쓰는 이유는?			일반화 시키기 위해서
+컬럼 지우는 이유?				결측데이터가 많이 빠지거나, 고유한 값의 개수가 가장 많은것
 
 df.info()					data type 확인(int,float 등등)
 df.describe()				min,25%,50%,75%,max 확인
-행열 개수 체크하는 방법 : print(X_train.shape,X_test.shape) 혹은 print(len(y_train),len(y_test)) 대신 앞에껀 차원 전부 보여주고, 뒤에껀 한 차원만 보여줌
+print(X_train.shape,X_test.shape) 혹은 print(len(y_train),len(y_test)) 행열 개수 체크하는 방법. 대신 앞에껀 차원 전부 보여주고, 뒤에껀 한 차원만 보여줌. 
 print(X.isnull())				결측 데이터 개수 확인
 print(X.isnull().sum())			결측 데이터 개수 확인(캘리포니아 거주 데이터에서 합계를 통해 0이 아니면 다른방법 써야되는거임)
 print(y.value_counts())			값의 개수 확인(분류형에서. 회귀형은 생략)
 model.fit(X_train,y_train)
 model.score(X_train,y_train)
 model.predict(X_test,y_test)
-pd.options.display.max_columns = 100		......표시 된거 없애고 모든 데이터 보여주기
 model.predict_proba(X_train[:5])		[예측값,예측값] 두예측값중에 큰것이 결과임
 model.decision_function(X_train[-10:])		predict_proba와 비슷하게 -면 0, +면 1로 예측
+pd.options.display.max_columns = 100	......표시 된거 없애고 모든 데이터 보여주기
+
 
 설명변수 X				다차원. [column,row],  특정 종속변수를 유추하기 위해 정의된 데이터셋
 종속변수 y				1차원  정답 데이터, label
 
-분류형(범주형)				정확도를 반환.확률 값으로 예측 가능. 값의 개수를 확인하는게 좋음(예를 들면 0,1)
+분류형(범주형)				정확도를 반환.확률 값으로 예측 가능. 값의 개수를 확인하는게 좋음(예를 들면 0,1). 한가지에만 너무 치중되어있으면 99%가 맞다고 하니깐.
 회귀형(선형)				결정계수를 반환. 값의 개수를 확인 안해도 됨(어차피 중복은 거의 없으므로)
 					목표치는 0.7혹은 0.8 이상임.
 					결정계수 0이면->머신러닝 모델의 학습이 부족함 (과소적합)
 					결정계수 1이면->머신러닝 모델의 학습이 잘 진행됨을 확인 (과대적합의 의심...)
 					결정계수 음수이면->머신러닝 모델의 학습이 부족함 (과소적합)
+					회귀 분석의 경우 해당 특성의 값은 종속변수의 값을 증가시키기 위해서 중요도가 높음
+					학습한 가중치는 학습 데이터에 베스트 핏이 되는 가중치(학습데이터의 베스트핏)
 LinearRegression				학습 데이터에 최적화되도록 학습을 해서 테스트 데이터에 대한 일반화 성능이 감소.
 					이를 해결하기 위해 제약조건을 통해 일반화 성능 증가시킴.
 *Ridge(L2)				0주변으로 보내버림 but 0은 아님(궁금하면 그림참고). 모든 특성에 대해 제약 적용.
 *Lasso(L1)				가중치가 0으로 수렴. 특정 특성에 대해 제약 적용.
-
-
+bootstraping				뽑기에서 1번이 나오면 또 1번이 나올 수 있다.
 
 머신러닝에서 학습데이터 : 테스트데이터=(70% or 80%) : (30% or 20%)
 딥러닝에서 학습데이터 : 검증 데이터 : 테스트데이터=(70%) : (10%) : (20%)
@@ -37,8 +44,8 @@ LinearRegression				학습 데이터에 최적화되도록 학습을 해서 테�
 from sklearn.model_selection import train_test_split		이건 그냥 숙지
 X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                     test_size=0.2,
-                                                    stratify=y,
-                                                    random_state=30)
+                                                    stratify=y,		test,train의 y데이터 비율을 맞춤.
+                                                    random_state=30)	매번 똑같이 뽑아주기위해
 f:함수, p:하이퍼 파라미터
 from sklearn.preprocessing import MinMaxScaler	전처리 0~1값으로 만들어주는것-->(원본값-최소값)/(최대값-최소값)
 -f : transform(설명변수)			설명변수 전처리 해주는것
@@ -92,7 +99,7 @@ from sklearn.ensemble import VotingClassifier		앙상블 취합(여러개 모델
 -p : voting='hard'					개수만 가지고 단하게 countig, 'soft'이면 비율임
 from sklearn.ensemble import BaggingClassifier			앙상블 취합(한개 모델, 각각 모델이 학습하는 데이터는 무작위 추출 방법(부스트트래핑)으로 처리.)
 							즉 다수개의 모델이 서로다른 관점의 학습을 진행 할 수 있도록 처리. "모델을 바꿀 수 없으니 데이터를 바꾸자"
--p : base_estimator=DecisionTreeClassifier(random_state=1)	모델 넣기			
+-p : base_estimator=DecisionTreeClassifier(random_state=1)	모델 넣기	,전처리와 스케일이 필요 없음.
 -p : n_estimator=10					n개의 base_estimator가 생성됨
 -p : max_samples						샘플 개수(낮을 수록 공부 방해)
 -p : max_features						특성(낮을 수록 공부 방해)

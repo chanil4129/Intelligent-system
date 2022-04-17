@@ -1,0 +1,137 @@
+데이터 적재(로딩)->데이터의 관찰(탐색)EDA->데이터의 분할->데이터 전처리->머신러닝 모델의 구축
+데이터 전처리를 나중에 하는 이유는?		????????????????????????
+
+df.info()					data type 확인(int,float 등등)
+df.describe()				min,25%,50%,75%,max 확인
+행열 개수 체크하는 방법 : print(X_train.shape,X_test.shape) 혹은 print(len(y_train),len(y_test)) 대신 앞에껀 차원 전부 보여주고, 뒤에껀 한 차원만 보여줌
+print(X.isnull())				결측 데이터 개수 확인
+print(X.isnull().sum())			결측 데이터 개수 확인(캘리포니아 거주 데이터에서 합계를 통해 0이 아니면 다른방법 써야되는거임)
+print(y.value_counts())			값의 개수 확인(분류형에서. 회귀형은 생략)
+model.fit(X_train,y_train)
+model.score(X_train,y_train)
+model.predict(X_test,y_test)
+pd.options.display.max_columns = 100		......표시 된거 없애고 모든 데이터 보여주기
+model.predict_proba(X_train[:5])		[예측값,예측값] 두예측값중에 큰것이 결과임
+model.decision_function(X_train[-10:])		predict_proba와 비슷하게 -면 0, +면 1로 예측
+
+설명변수 X				다차원. [column,row],  특정 종속변수를 유추하기 위해 정의된 데이터셋
+종속변수 y				1차원  정답 데이터, label
+
+분류형(범주형)				정확도를 반환.확률 값으로 예측 가능. 값의 개수를 확인하는게 좋음(예를 들면 0,1)
+회귀형(선형)				결정계수를 반환. 값의 개수를 확인 안해도 됨(어차피 중복은 거의 없으므로)
+					목표치는 0.7혹은 0.8 이상임.
+					결정계수 0이면->머신러닝 모델의 학습이 부족함 (과소적합)
+					결정계수 1이면->머신러닝 모델의 학습이 잘 진행됨을 확인 (과대적합의 의심...)
+					결정계수 음수이면->머신러닝 모델의 학습이 부족함 (과소적합)
+LinearRegression				학습 데이터에 최적화되도록 학습을 해서 테스트 데이터에 대한 일반화 성능이 감소.
+					이를 해결하기 위해 제약조건을 통해 일반화 성능 증가시킴.
+*Ridge(L2)				0주변으로 보내버림 but 0은 아님(궁금하면 그림참고). 모든 특성에 대해 제약 적용.
+*Lasso(L1)				가중치가 0으로 수렴. 특정 특성에 대해 제약 적용.
+
+
+
+머신러닝에서 학습데이터 : 테스트데이터=(70% or 80%) : (30% or 20%)
+딥러닝에서 학습데이터 : 검증 데이터 : 테스트데이터=(70%) : (10%) : (20%)
+	딥러닝에서 검증데이터가 필요한 이유 : 부분배치 학습을 수행하여 점진적으로 학습량을 늘려가는 경우가 많아, 중간 점검의 의미로 검증데이터 사용.
+
+from sklearn.model_selection import train_test_split		이건 그냥 숙지
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                    test_size=0.2,
+                                                    stratify=y,
+                                                    random_state=30)
+f:함수, p:하이퍼 파라미터
+from sklearn.preprocessing import MinMaxScaler	전처리 0~1값으로 만들어주는것-->(원본값-최소값)/(최대값-최소값)
+-f : transform(설명변수)			설명변수 전처리 해주는것
+from sklearn.preprocessing import StandardScaler	정규화로 스케일 처리. 데이터를 구성하는 각 컬럼의 값을 평균은 0, 표준편차는 1로 스케일 조정
+from sklearn.neighbors import KNeighborsClassifier	기하적 계산(유클리드). 분류형
+-p : n_neighbors=3				3개 데이터를 기준으로...	
+from sklearn.neighbors import KNeighborsRegressor	기하적 계산(유클리드). 회귀형
+from sklearn.linear_model import LinearRegression	선형방정식을 기반으로 회귀분석 수행
+						각각의 특성 별로 최적화된 가중치의 값을 계산하는 머신러닝 알고리즘.
+						학습데이터에 베스트 핏이 되는 가중치->새로운 데이터에 잘 적응할 수 있을까->제약의 방식을 사용하여 문제해결(Ridge,Lasso) 
+-f : coef_						기울기, 즉 가중치임(기울기가 0이면 결과에 영향 없는 특성임. 기울기의 절대값이 클수록 영향력 큼)
+-f : intercept					절편, 즉 y를 예측하기 위한 절편의 값
+from sklearn.linear_model import Ridge, Lasso		Ridge=L1, Lasso=L2
+-p : alpha					클수록 제약 커짐(모델 학습을 방해), 알파값이 작아질수록 LinearRegression 클래스와 동일해짐
+-p : random_state					
+from sklearn.metrics import R2_score				데이터에 관계없이 동일한 결과의 범위를 사용하여 모델을 평가
+from sklearn.metrics import 	mean_absolute_error		실제 정답과 모델이 예측한 값의 차이를 절대값으로 평균(머신러닝 모델이 예측한 값의 신뢰 범위)
+from sklearn.metrics import 	mean_absolute_percentage_error	실제 정답과 모델이 예측한 값의 비율 차이를 절대값으로 평균
+from sklearn.metrics import 	mean_squared_error		실제 정답과 모델이 예측한 값의 차이의 제곱값 평균(머신러닝/딥러닝 모델의 오차 값을 계산할 때 사용)
+from sklearn.preprocessing import PolynomialFeatures	
+-p : degree=3					차원 조절
+-p : include_bias=False				
+-f : transform(X)					차원 변경함수
+from sklearn.linear_model import LogisticRegression	#####Regression이라 쓰여있는데 이거 분류형임#####
+-p : penalty='l2',					탐색DB(Ridge,Lasso 등등)
+-p : C=1.0					L1,L2 제약(알파값과 반대로 움직임)
+-p : class_weight='balanced'				가중치 밸런스 맞추기(나는 1개말고, 99개 맞출거다. 객관식 90 서술형 10이면 객관식 준비하는것과 같은 원리)
+-p : class_weight={0:1000, 1:1}			//class_weight 또다른 예시
+-p : solver='lbfgs'					최적의 알고리즘을 적용하기 위해 있음. 데이터셋이 대용량이면 sag,saga로 하면댐
+-p : max_iter=1000000				반복 횟수
+-p : n_jobs=-1					
+-p : random_state=5				
+-p : verbose=3					진행과정 확인
+from sklearn.metrics import confusion_matrix		혼동행렬
+-f : confusion_matrix(y_train, pred)			
+from sklearn.metrics import accuracy_score		정확도
+from sklearn.metrics import precision_score		정밀도
+from sklearn.metrics import recall_score		재현율
+from sklearn.tree import DecisionTreeClassifier		결정트리
+-p : max_depth=3					과대적합이 defalut 값임
+-p : class_weight='balanced'				
+-p : random_state=1
+-p : min_samples_split				최소 샘플의 개수. 늘어날수록 상세하게 분류 못함
+-p : min_samples_leaf				deafault=1로 제일 마지막 leaf는 1개면 된다. 늘어날수록 상세하게 분류 못함
+from sklearn.svm import SVC, LinearSVC		support vector임. support vector들을 찾는것이 목적이라 스케일 값에 굉장히 민감
+						따라서 데이터 전처리가 필수다.
+-p : kernel{‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’, ‘precomputed’} or callable, default=’rbf’	linear이면 LinearSVC랑 똑같음
+-p : gamma					밀집데이터의 강도를 결정
+from sklearn.ensemble import VotingClassifier		앙상블 취합(여러개 모델)
+-p : estimators=estimators				내가 사용할 모델. 오른쪽 estimators는 list형 자료형임
+-p : voting='hard'					개수만 가지고 단하게 countig, 'soft'이면 비율임
+from sklearn.ensemble import BaggingClassifier			앙상블 취합(한개 모델, 각각 모델이 학습하는 데이터는 무작위 추출 방법(부스트트래핑)으로 처리.)
+							즉 다수개의 모델이 서로다른 관점의 학습을 진행 할 수 있도록 처리. "모델을 바꿀 수 없으니 데이터를 바꾸자"
+-p : base_estimator=DecisionTreeClassifier(random_state=1)	모델 넣기			
+-p : n_estimator=10					n개의 base_estimator가 생성됨
+-p : max_samples						샘플 개수(낮을 수록 공부 방해)
+-p : max_features						특성(낮을 수록 공부 방해)
+from sklearn.ensemble import RandomForestClassifier	배깅 앙상블에 결정트리를 조합한 모델
+-p : n_estimators=100
+-p : max_depth=None
+-p : max_samples=0.7
+-p : max_features=0.7
+-p : n_jobs=-1
+-p : random_state=1
+from sklearn.ensemble import AdaBoostClassifier	앙상블 부스팅. 선형모델일때 무조건 써야댐. 기본모델을 직접 설정해야함
+						데이터 중심의 부스팅 방법론 구현. 작전 모델이 잘못 예측한 데이터에 가중치를 부여
+						"100개중 5개만 1차로 맞추면 다음모델은 남은 95개에 집중"
+-p : learning_rate=1.9				얼마나 가중치를 둘것인지. 높을수록 더 많은 가중치 부여
+from sklearn.ensemble import GradientBoostingClassifier	앙상블 부스팅. 결정 트리가 기본모델. "랜덤포레스트의 부스팅버전"
+						오차에 중심을 둔 부스팅 방법론을 구현. 각각의 학습 데이터에 대해서 오차의 크기가 큰 데이터에 가중치를
+						부여하여 전체의 오차를 줄여나가는 방식.
+						"날씨 예측은 20도였는데 실제론 30도. 10도 차이를 줄이기 위한 노력을 한다"
+-p : n_estimators=100				
+-p : learning_rate=0.1				
+-p : subsample=0.2				
+-p : max_depth=1					
+-p : random_state=1					
+
+
+
+
+
+
+
+그냥 숙지
+X = pd.DataFrame(data.data, 
+                 columns=data.feature_names)
+y = pd.Series(data.target)
+
+X.info()
+X.isnull().sum()
+X.describe(include='all')
+
+y.head()
+y.value_counts()
+y.value_counts() / len(y)

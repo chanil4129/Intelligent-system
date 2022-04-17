@@ -26,9 +26,9 @@ from sklearn.ensemble import BaggingRegressor
 base_estimator = DecisionTreeRegressor(random_state=1)
 
 model = BaggingRegressor(base_estimator=base_estimator,
-                         n_estimators=100,
-                         max_samples=0.5,
-                         max_features=0.3,
+                         n_estimators=1000,
+                         max_samples=0.4,
+                         max_features=0.5,
                          random_state=1,
                          n_jobs=-1)
 
@@ -48,9 +48,7 @@ pred = model.predict(X_train)
 # 평균절대오차
 mae = mean_absolute_error(y_train, pred)
 print(f'MAE : {mae}')
-
-print(X.info())
-print(model.coef_)
+#print(y_train.describe())
 
 
 

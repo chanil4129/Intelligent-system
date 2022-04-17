@@ -23,7 +23,7 @@ X_train,X_test,y_train,y_test=train_test_split(X,y,
 
 from sklearn.ensemble import GradientBoostingRegressor
 
-model = GradientBoostingRegressor(n_estimators=100,
+model = GradientBoostingRegressor(n_estimators=1000,
                                   learning_rate=0.1,
                                   subsample=0.2,
                                   max_depth=1,
@@ -45,6 +45,4 @@ pred = model.predict(X_train)
 # 평균절대오차
 mae = mean_absolute_error(y_train, pred)
 print(f'MAE : {mae}')
-
-print(X.info())
-print(model.coef_)
+#print(y_train.describe())

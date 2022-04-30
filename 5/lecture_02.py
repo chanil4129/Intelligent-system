@@ -44,7 +44,7 @@ y_test.value_counts() / len(y_test)
 
 from sklearn.tree import DecisionTreeClassifier
 
-model = DecisionTreeClassifier(max_depth=3,
+model = DecisionTreeClassifier(max_depth=None,
                                class_weight='balanced',
                                random_state=1)
 model.fit(X_train, y_train)
@@ -63,8 +63,8 @@ proba
 pred = model.predict(X_train[:5])
 pred
 
-df = model.decision_function(X_train[-10:])
-df
+# df = model.decision_function(X_train[-10:])
+# df
 
 pred = model.predict(X_train[-10:])
 pred

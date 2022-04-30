@@ -4,7 +4,7 @@ save_data_on_exit = True
 save_history = True
 save_non_project_files = False
 project_type = 'empty-project-type'
-recent_files = ['assignment\\#2_bagging.py', 'assignment\\#2_gredient.py', '4\\lecture_01.py']
+recent_files = ['exam\\boston.py', '7\\lecture_01.py', '4\\lecture_01.py', '4\\lecture_02.py', '4\\lecture_03.py', '4\\lecture_04.py', '5\\lecture_01.py']
 
 [main]
 version = 0.2.0

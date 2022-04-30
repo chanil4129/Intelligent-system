@@ -194,7 +194,7 @@ print(X_obj_encoded[:5])
 #   (pandas의 데이터프레임이 아님!!!)
 
 print(encoder.categories_)
-print(encoder.feature_names_in_)
+# print(encoder.feature_names_in_)
 
 X_obj_encoded = pd.DataFrame(X_obj_encoded,
                              columns=['s_f','s_m',
@@ -234,7 +234,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 
 model = RandomForestClassifier(n_estimators=100,
                                max_depth=None,
-                               max_samples=1.0,
+                               max_samples=1,
                                class_weight='balanced',
                                n_jobs=-1,
                                random_state=0)

@@ -96,7 +96,7 @@ from sklearn.linear_model import Ridge, Lasso
 # 머신러닝 객체의 생성
 lr_model = LinearRegression(n_jobs=-1)
 ridge_model = Ridge(alpha=1., random_state=1)
-lasso_model = Lasso(alpha=0.001, max_iter=100000, random_state=1)
+lasso_model = Lasso(alpha=0.001, max_iter=100, random_state=1)
 
 # 학습
 lr_model.fit(X_train, y_train)

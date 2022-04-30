@@ -25,7 +25,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 
 model = GradientBoostingRegressor(n_estimators=1000,
                                   learning_rate=0.1,
-                                  subsample=0.2,
+                                  subsample=0.4,
                                   max_depth=1,
                                   random_state=1)
 
@@ -38,11 +38,11 @@ print(f'Score (train) : {score} ')
 score = model.score(X_test, y_test)
 print(f'Score (test) : {score} ')
 
-from sklearn.metrics import 	mean_absolute_error
+from sklearn.metrics import mean_absolute_error
 
-pred = model.predict(X_train)
+pred = model.predict(X_test)
 
 # 평균절대오차
-mae = mean_absolute_error(y_train, pred)
+mae = mean_absolute_error(y_test, pred)
 print(f'MAE : {mae}')
-#print(y_train.describe())
+print(y_test.describe())

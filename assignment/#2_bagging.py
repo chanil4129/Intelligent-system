@@ -43,15 +43,9 @@ print(f'Score (test) : {score} ')
 
 from sklearn.metrics import 	mean_absolute_error
 
-pred = model.predict(X_train)
+pred = model.predict(X_test)
 
 # 평균절대오차
-mae = mean_absolute_error(y_train, pred)
+mae = mean_absolute_error(y_test, pred)
 print(f'MAE : {mae}')
-#print(y_train.describe())
-
-
-
-
-
-
+print(y_test.describe())

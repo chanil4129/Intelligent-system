@@ -30,10 +30,7 @@ print(X.isnull().sum())
 
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import MinMaxScaler
-<<<<<<< HEAD
 # 결측데이터를 처리해주는 전처리 클래스
-=======
->>>>>>> 33070394b66d27e6418adbff09f9d7ccb8ba3c45
 from sklearn.impute import SimpleImputer
 
 encoder = OneHotEncoder(sparse=False,
@@ -41,7 +38,6 @@ encoder = OneHotEncoder(sparse=False,
 
 scaler = MinMaxScaler()
 
-<<<<<<< HEAD
 # 수치형 데이터
 imputer_num = SimpleImputer(
     missing_values=np.nan, # 결측데이터라고 생각하는 것을 적으세요=>np의 nan
@@ -60,24 +56,6 @@ num_pipe = Pipeline(
 
 obj_pipe = Pipeline(
     [('imputer_obj',imputer_obj), #결측 먼저
-=======
-
-imputer_num = SimpleImputer(
-    missing_values=np.nan, 
-    strategy='mean')
-
-imputer_obj = SimpleImputer(
-    missing_values=None, 
-    strategy='most_frequent')
-
-from sklearn.pipeline import Pipeline
-num_pipe = Pipeline(
-    [('imputer_num',imputer_num),
-     ('scaler',scaler)])
-
-obj_pipe = Pipeline(
-    [('imputer_obj',imputer_obj),
->>>>>>> 33070394b66d27e6418adbff09f9d7ccb8ba3c45
      ('encoder',encoder)])
 
 from sklearn.compose import ColumnTransformer
@@ -100,7 +78,3 @@ print(ct.transform(X))
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 33070394b66d27e6418adbff09f9d7ccb8ba3c45

@@ -32,10 +32,10 @@ print(data.info())
 print(data.PassengerId.value_counts())
 print(data.Name.value_counts())
 
-columns = data.columns
+columns = data.columns # 복붙용(꿀팁)
 columns = ['HomePlanet', 'CryoSleep', 'Cabin', 'Destination', 'Age',
-       'VIP', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 
-       'VRDeck', 'Transported']
+        'VIP', 'RoomService', 'FoodCourt', 'ShoppingMall', 'Spa', 
+        'VRDeck', 'Transported']
 data = data[columns]
 print(data.info())
 
@@ -67,9 +67,10 @@ df_encoded = pd.DataFrame(encoder_output)
 print(df_encoded.info())
 
 # 인덱스 정보의 불일치로 데이터 결합에서 문제가 발생함
+# 6606개인데 이전 0~8692로 설정 되어 있음
 print(data.info())
 
-data.reset_index(inplace=True)
+data.reset_index(inplace=True) #바로 반영하라는 
 print(data.info())
 
 # 두 개의 데이터프레임을 하나로 결합
@@ -88,9 +89,9 @@ print(y.head())
 # 데이터 분할
 from sklearn.model_selection import train_test_split
 X_train,X_test,y_train,y_test = train_test_split(X, y,
-                                                 test_size=0.3,
-                                                 stratify=y,
-                                                 random_state=11)
+                                                  test_size=0.3,
+                                                  stratify=y,
+                                                  random_state=11)
 
 print(X_train.shape, X_test.shape)
 
@@ -133,15 +134,15 @@ model_knn = KNeighborsClassifier(n_neighbors=5,
                                 n_jobs=-1).fit(X_train,y_train)
 
 model_rf = RandomForestClassifier(n_estimators=100,
-                                 max_depth=None,
-                                 class_weight={False:0.3,True:0.7},
-                                 n_jobs=-1,
-                                 random_state=11).fit(X_train,y_train)
+                                  max_depth=None,
+                                  class_weight={False:0.3,True:0.7},
+                                  n_jobs=-1,
+                                  random_state=11).fit(X_train,y_train)
 
 model_gb = GradientBoostingClassifier(n_estimators=200,
-                                     max_depth=1,
-                                     subsample=0.5,
-                                     random_state=11).fit(X_train,y_train)
+                                      max_depth=1,
+                                      subsample=0.5,
+                                      random_state=11).fit(X_train,y_train)
 
 # - 평가를 위한 함수 import
 from sklearn.metrics import precision_score

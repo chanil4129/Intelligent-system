@@ -55,6 +55,7 @@ print(not_nan_series == 0)
 
 # Series 내부의 값을 조건식을 기준으로 추출하는 방법
 # - 결측 데이터가 존재하지 않는 컬럼 데이터만 추출
+# true 값만 남음=>결측데이터는 존재하지 않게됨
 not_nan_series = not_nan_series[not_nan_series == 0]
 print(not_nan_series)
 
@@ -84,7 +85,7 @@ from sklearn.preprocessing import LabelEncoder
 # - 원핫인코더의 경우 fit 메소드의 입력 값은 반드시 2차원만 가능
 #   (원핫인코더는 다수개의 문자열 컬럼을 한번에 전처리할 수 있음)
 
-print(data[obj_columns].head())
+print(data[obj_columns].head()) # 인코딩 전 확인
 
 # - 각 문자열 컬럼에 대한 인코더를 저장하기 위해서 딕셔너리 생성
 dict_encoder = {}
@@ -98,8 +99,8 @@ for cname in obj_columns :
     # 원본 데이터를 라벨 인코딩 결과로 대체
     data[cname] = encoder.transform(data[cname])
 
-print(data[obj_columns].head())
-# print(dict_encoder)
+print(data[obj_columns].head()) # 문자열 데이터가 수치로 된걸 확인
+print(dict_encoder) # 컬럼의 이름별로 저장되있는거 확
 
 # - 라벨 인코딩 적용 결과 확인
 print(data.info())

@@ -24,7 +24,6 @@ X_part = X[['radius error',
            'concavity error']]
 
 # 최적의 군집 개수를 검색
-# - 5개의 군집 개수가 최적화
 # from sklearn.cluster import KMeans
 # values = []
 # for i in range(1, 15) :
@@ -41,6 +40,7 @@ X_part = X[['radius error',
 # plt.xlabel('numbers of cluster')
 # plt.ylabel('inertia_')
 # plt.show()
+# ----> 5개의 군집 개수가 최적화
 
 from sklearn.cluster import KMeans
 km = KMeans(n_clusters=5,
@@ -57,7 +57,7 @@ del X['compactness error']
 del X['concavity error']
 
 print(X.info())
-
+    
 
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(

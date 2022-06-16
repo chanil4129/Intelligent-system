@@ -76,16 +76,26 @@ pred_dt = clf_dt.predict(X_train_scaled)
 import numpy as np
 pred_stack = np.array([pred_lr, pred_kn, pred_dt])
 # print(pred_stack)
+# [[1 1 1 ... 1 1 0]
+#  [1 1 1 ... 1 1 0]
+#  [1 1 1 ... 1 1 0]]
 
 # print(y_train.shape)
+# (398,)
 # print(pred_stack.shape)
+# (3, 398)
 
-pred_stack = pred_stack.T
+pred_stack = pred_stack.T # 전취된(???)값을 가져올 수 있다
 
 # print(y_train.shape)
 # print(pred_stack.shape)
 
 # print(pred_stack[:5])
+# [[1 1 1]
+#  [1 1 1]
+#  [1 1 1]
+#  [1 1 1]
+#  [1 1 1]]
 
 from sklearn.ensemble import RandomForestClassifier
 final_model = RandomForestClassifier(n_estimators=100,

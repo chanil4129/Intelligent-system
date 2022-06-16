@@ -46,12 +46,21 @@ from sklearn.model_selection import KFold
 # (기본적으로 데이터를 셔플하지 않고 순차적으로 분할)
 # KFold 타입의 객체를 cross_val_score 함수의 cv 매개변수로
 # 사용할 수 있음
-cv = KFold(n_splits=3)
+cv = KFold(n_splits=3) #3개로 분할하겠다는 뜻
 
 cv_scores=cross_val_score(
             model, X, y,
             cv=cv, scoring='accuracy', n_jobs=-1)
 
+# y 값
+# array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+#        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+#        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+#KFold는 순차적으로 자름 그래서 0나옴. 강의 2시간 21분쯤 나옴
 print(f'(CV) scores : \n{cv_scores}')
 print(f'(CV) scores mean : \n{cv_scores.mean()}')
 
@@ -72,6 +81,8 @@ cv_scores=cross_val_score(
 print(f'(CV) scores : \n{cv_scores}')
 print(f'(CV) scores mean : \n{cv_scores.mean()}')
 
+
+#시험에 나올거임
 from sklearn.model_selection import StratifiedKFold
 
 

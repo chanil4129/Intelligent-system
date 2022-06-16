@@ -60,8 +60,8 @@ from sklearn.model_selection import cross_val_score
 cv_scores = cross_val_score(model,
                          X_train_scaled,
                          y_train,
-                         scoring='recall',
-                         cv=5,
+                         scoring='recall',  #실제로 만들어진 모델의 교차검증 성적을 어떤 기준으로 가져올 것인지.
+                         cv=5,  #시도횟수라 보면 될듯 
                          n_jobs=-1)
 
 # 6. 교차검증 결과의 확인 평가

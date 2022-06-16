@@ -56,11 +56,11 @@ encoder = OneHotEncoder(sparse=False,
 scaler = MinMaxScaler()
 
 imputer_num = SimpleImputer(
-#    missing_values=np.nan, 
+#    missing_values=np.nan,  #import numpy as np가 없어서 에러인건데 어차피 상관없어서 지움
     strategy='mean')
 
 imputer_obj = SimpleImputer(
-    #missing_values=None, 
+    #missing_values=None, #none도 하나의 컬럼으로 돼가지고 에러나서 지움
     strategy='most_frequent')
 
 from sklearn.pipeline import Pipeline
@@ -84,7 +84,7 @@ ct = ColumnTransformer(
 ct.fit(X)
 
 X = ct.transform(X)
-# print(X.shape)
+print(X.shape)
 
 # 데이터 분할
 from sklearn.model_selection import train_test_split

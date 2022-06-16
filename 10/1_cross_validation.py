@@ -1,6 +1,6 @@
 ﻿# -*- coding: utf-8 -*-
 
-# 1_cross_validation.py
+# 1_cross_validation.py == 교차검증
 
 # 머신러닝을 사용하여 데이터를 분석하는 과정
 # 1. 데이터 셋 로딩
@@ -19,7 +19,7 @@ X_train,X_test,y_train,y_test=train_test_split(
     X, y,
     test_size=0.3,
     stratify=y,
-    random_state=1)
+    random_state=1) #random_state가 바뀌면 결과가 바뀜. 데이터에 따라 달라지므로 교차검증 필요 
 
 # 2. 데이터의 전처리
 # - 스케일 처리

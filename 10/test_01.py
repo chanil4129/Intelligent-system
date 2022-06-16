@@ -56,7 +56,7 @@ encoder = OneHotEncoder(sparse=False,
 scaler = MinMaxScaler()
 
 imputer_num = SimpleImputer(
-#    missing_values=np.nan, 
+#    missing_values=np.nan, #numpy가 import 되지 않아서 에러나는 거임
     strategy='mean')
 
 imputer_obj = SimpleImputer(
@@ -84,7 +84,7 @@ ct = ColumnTransformer(
 ct.fit(X)
 
 X = ct.transform(X)
-# print(X.shape)
+# print(X.shape) #원핫 인코더 때매 컬럼이 늘어난 것을 확인할 수 있음
 
 # 데이터 분할
 from sklearn.model_selection import train_test_split

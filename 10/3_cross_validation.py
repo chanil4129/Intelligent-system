@@ -17,13 +17,13 @@ model = LogisticRegression(
 
 # cross_val_score 함수는 매개변수로 전달된
 # 예측기 객체의 타입이 분류인 경우에는 
-# 데이터의 서플 과정을 선행합니다.
+# 데이터의 셔플 과정을 선행합니다.
 # 반면, 예측기의 타입이 회귀인 경우에는 
 # 데이터의 셔플 과정을 생략
 from sklearn.model_selection import cross_val_score
 cv_scores=cross_val_score(
             model, X, y,
-            cv=5, scoring='accuracy', n_jobs=-1)
+            cv=5, scoring='accuracy', n_jobs=-1)    #cv값을 바꿔가면서 확인
 
 print(f'(CV) scores : \n{cv_scores}')
 print(f'(CV) scores mean : \n{cv_scores.mean()}')
@@ -38,6 +38,7 @@ print(f'(MODEL) TEST SCORE : {score}')
 
 
 # 교차 검증을 위해서 사용되는 KFold 클래스
+# Fold로 분할시켜주는 것임
 # - 데이터의 분할
 from sklearn.model_selection import KFold
 
@@ -72,6 +73,7 @@ cv_scores=cross_val_score(
 print(f'(CV) scores : \n{cv_scores}')
 print(f'(CV) scores mean : \n{cv_scores.mean()}')
 
+# 이거 시험에 나올 듯 하니 확인
 from sklearn.model_selection import StratifiedKFold
 
 

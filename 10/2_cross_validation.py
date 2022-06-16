@@ -46,7 +46,7 @@ model = LogisticRegression(
 #   cross_val_score(예측기 객체, 
 #                   전체 X 데이터, 
 #                   전체 y 데이터, 
-#                   교차검증개수)
+#                   교차검증개수) #많으면 많을수록 디테일한 검증이 되는것
 # - 반환되는 값
 #   교차검증 개수에 정의된 크기의 예측기 객체가 생성되며
 #   각 예측기의 평가 점수가 반환됨
@@ -67,7 +67,7 @@ cv_scores = cross_val_score(model,
 # 6. 교차검증 결과의 확인 평가
 # - 현재 데이터 셋에 대한 모델의 평가
 print(f'(CV) scores : \n{cv_scores}')
-print(f'(CV) scores mean : \n{cv_scores.mean()}')
+print(f'(CV) scores mean : \n{cv_scores.mean()}')       # 공부할 때 성적이 99.6..%인거임
 
 # 7. 머신러닝 모델의 학습
 model.fit(X_train_scaled, y_train)
@@ -78,7 +78,12 @@ score = model.score(X_train_scaled, y_train)
 print(f'(MODEL) TRAIN SCORE : {score}')
 
 score = model.score(X_test_scaled, y_test)
-print(f'(MODEL) TEST SCORE : {score}')
+print(f'(MODEL) TEST SCORE : {score}')          # 아까보단 떨어짐
+
+
+
+
+
 
 
 

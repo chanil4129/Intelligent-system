@@ -20,7 +20,7 @@ plt.show()
 
 from sklearn.cluster import KMeans
 km = KMeans(n_clusters=5,
-            init='k-means++',
+            init='k-means++', # 찾고자 하는 center값을 빠르게 찾을 수 있도록 함.
             n_init=10,
             max_iter=300,
             random_state=0)

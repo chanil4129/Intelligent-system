@@ -41,12 +41,23 @@ print(y[:10])
 
 import matplotlib.pyplot as plt
 
+
 # 산점도
 plt.scatter(X[:, 0], X[:, 1], c='white',
             marker='o', edgecolor='black',
             s=50) # s는 반지름 크기
 plt.grid() # 옵션값
 plt.show() # 보여주기
+
+
+plt.scatter(X[:, 0], X[:, 1], 
+            c='white', # color
+            marker='o', # 모양
+            edgecolor='black', # 테두리 색
+            s=50) # 크기
+plt.grid() # 선
+plt.show() # 출력
+# y값을 알고 있으니깐 군집 만들었던거임. y모를 때 예시는 아래
 
 
 # 최근접 이웃 알고리즘???

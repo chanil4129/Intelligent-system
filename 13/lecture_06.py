@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from sklearn.datasets import make_moons
-
+# 200개 데이터를 랜덤하게 만드는데 태극기 문양마냥 생김
 X, y = make_moons(n_samples=200, 
                   noise=0.05,
                   random_state=0)

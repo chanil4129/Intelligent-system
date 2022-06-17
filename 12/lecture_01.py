@@ -6,6 +6,8 @@ data = fetch_california_housing()
 
 X = pd.DataFrame(data.data, columns=data.feature_names)
 y = pd.Series(data.target)
+# X, y = fetch_california_housing(return_X_y=True)
+
 
 print(X.head())
 print(X.info())

@@ -45,7 +45,7 @@ from sklearn.model_selection import KFold, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
-# 파이프 라인 객체의 생성
+# 파이프 라인 객체의 생성(자료구조의 큐를 생각하면 됨)
 # - Pipeline([(1번째 변환기 클래스 객체의 이름, 객체), (2번째 변환기 클래스 객체의 이름, 객체), ...])
 # - Pipeline([1번째 변환기 클래스의 튜플, 2번째 변환기 클래스의 튜플, ...])
 # - 파이프 라인의 마지막 객체를 제외한 나머지 객체들은
@@ -55,7 +55,8 @@ from sklearn.pipeline import Pipeline
 
 base_model = LogisticRegression(n_jobs=-1,random_state=11)
 
-pipe = Pipeline([('s_scaler',scaler),('base_model',base_model)])
+pipe = Pipeline([('s_scaler',scaler),('base_model',base_model)]),
+#scaler.transform(X_train,y_train)과 base_model.score(X_train_scaled)된거임
 
 # 파이프 라인의 실행 과정
 # 1. fit 메소드가 호출되는 경우
@@ -86,7 +87,6 @@ pred_test=pipe.predict(X_test)
 
 print(classification_report(y_train, pred_train))
 print(classification_report(y_test, pred_test))
-
 
 
 

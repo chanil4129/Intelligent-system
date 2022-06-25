@@ -5,6 +5,8 @@
 
 # 머신러닝 모델의 하이퍼 파라메터를
 # 검색하는 예제
+# 전처리 했다고 가정
+# 문제있는 모델
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -20,6 +22,12 @@ X_train,X_test,y_train,y_test=train_test_split(
     test_size=0.2,
     random_state=1,
     stratify=y)
+
+# model=GradientBoostingClassifier()
+# model.fit(X_train,y_train)
+# print(model.score(X_train,y_train))
+# print(model.score(X_test,y_test))
+
 
 # 최적의 하이퍼 파라메터를 검색하는 코드
 best_score = None
@@ -42,7 +50,8 @@ for lr in [0.1, 0.2, 0.3, 1., 0.01] :
 
             # 학습된 모델을 사용하여 
             # 테스트 데이터의 성능을 평가
-            score = model.score(X_test, y_test)
+            score = model.score(X_test, y_test) # 정확도를 구하는 대상이 잘못됨.
+            # 공부는 train 데이터로했는데 평가는 test 데이터로 평가해서 문제..
             
             # score 점수를 기반으로 
             # 최적의 모델 정보를 저장

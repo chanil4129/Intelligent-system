@@ -8,10 +8,11 @@ X = pd.DataFrame()
 print(X)
 print(X.info())
 
-X['gender'] = ['F','M','F','F', None]
+# 문자의 none은 괜츈하지만 수치형의 none은 안괜찮다. 
+X['gender'] = ['F','M','F','F', None] #바뀐부분-None 
 print(X)
 
-X['age'] = [15, None, 25, 37, 55]
+X['age'] = [15, None, 25, 37, 55] #바뀐부분-None
 print(X)
 
 print(X.info())
@@ -41,7 +42,7 @@ scaler = MinMaxScaler()
 # 수치형 데이터
 imputer_num = SimpleImputer(
     missing_values=np.nan, # 결측데이터라고 생각하는 것을 적으세요=>np의 nan
-    strategy='mean') # 평균
+    strategy='mean') # 평균, 다른걸로는 median, most_frequent,constant등이 올 수 있다.
 
 # 문자형 데이터
 imputer_obj = SimpleImputer(

@@ -48,6 +48,11 @@ from sklearn.model_selection import KFold, GridSearchCV
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 
+base_model = LogisticRegression(n_jobs=-1,random_state=11)
+
+pipe = Pipeline([('s_scaler',scaler),('base_model',base_model)])
+
+
 # Pipeline을 예측기로 사용하는 GridSearchCV 클래스의
 # 파라메터 정보는 키 값의 형태를 
 # 파이프라인의예측기객체명__파라메터이름
@@ -62,9 +67,9 @@ param_grid=[{'base_model__penalty' : ['l2'],
 
 cv = KFold(n_splits=5,shuffle=True,random_state=11)
 
-base_model = LogisticRegression(n_jobs=-1,random_state=11)
+# base_model = LogisticRegression(n_jobs=-1,random_state=11)
 
-pipe = Pipeline([('s_scaler',scaler),('base_model',base_model)])
+# pipe = Pipeline([('s_scaler',scaler),('base_model',base_model)])
 
 # GridSearchCV 클래스의 생성자 매개변수로 
 # 파이프 라인 객체가 사용될 수 있습니다.
@@ -73,8 +78,8 @@ pipe = Pipeline([('s_scaler',scaler),('base_model',base_model)])
 # - 남은 하나의 폴드는 기존의 4개의 폴드로 전처리된 변환기 클래스에
 #   의해서 transform 되어 예측에 사용됩니다.
 #   (새로운 데이터로 인식되는 방식)
-grid_model = GridSearchCV(pipe, param_grid=param_grid, cv=cv,
-                          scoring='f1', n_jobs=-1)
+grid_model = GridSearchCV(pipe, param_grid=param_grid, cv=cv, 
+                          scoring='recall', n_jobs=-1) # recall은 재현율임
 
 grid_model.fit(X_train,y_train)
 

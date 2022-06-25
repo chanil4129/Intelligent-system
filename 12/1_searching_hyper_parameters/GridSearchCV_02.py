@@ -4,6 +4,7 @@
 
 # 머신러닝 모델의 하이퍼 파라메터를
 # 검색하는 예제
+# 문제있는 모델
 
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -25,7 +26,7 @@ X_train,X_test,y_train,y_test=train_test_split(
 X_train,X_valid,y_train,y_valid=train_test_split(
     X_train, y_train,
     test_size=0.1,
-    random_state=1,
+    random_state=1,  # 이 값이 바뀌면 또 모델 엉망될 확률 높음=>GridSearchCV_-03번에서 교차검증으로 해결
     stratify=y_train)
 
 # 학습 / 검증 / 테스트 데이터 셋의 크기를 확인

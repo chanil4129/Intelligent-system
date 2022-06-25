@@ -63,6 +63,14 @@ param_grid = [{'C':[1., 0.1, 0.01, 10., 100],
               'penalty':['elasticnet'],
               'solver':['saga']}]
 
+# solver 매개변수 조건
+# ‘newton-cg’ - [‘l2’, ‘none’]
+# ‘lbfgs’ - [‘l2’, ‘none’]
+# ‘liblinear’ - [‘l1’, ‘l2’]
+# ‘sag’ - [‘l2’, ‘none’]
+# ‘saga’ - [‘elasticnet’, ‘l1’, ‘l2’, ‘none’]
+
+
 from sklearn.model_selection import GridSearchCV
 cv=KFold(n_splits=5,shuffle=True,random_state=1)
 estimator=LogisticRegression(max_iter=10000)

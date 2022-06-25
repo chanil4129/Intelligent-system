@@ -17,13 +17,13 @@ model = LogisticRegression(
 
 # cross_val_score 함수는 매개변수로 전달된
 # 예측기 객체의 타입이 분류인 경우에는 
-# 데이터의 셔플 과정을 선행합니다.
+# 데이터의 서플 과정을 선행합니다.
 # 반면, 예측기의 타입이 회귀인 경우에는 
 # 데이터의 셔플 과정을 생략
 from sklearn.model_selection import cross_val_score
 cv_scores=cross_val_score(
             model, X, y,
-            cv=5, scoring='accuracy', n_jobs=-1)    #cv값을 바꿔가면서 확인
+            cv=5, scoring='accuracy', n_jobs=-1)
 
 print(f'(CV) scores : \n{cv_scores}')
 print(f'(CV) scores mean : \n{cv_scores.mean()}')
@@ -38,7 +38,6 @@ print(f'(MODEL) TEST SCORE : {score}')
 
 
 # 교차 검증을 위해서 사용되는 KFold 클래스
-# Fold로 분할시켜주는 것임
 # - 데이터의 분할
 from sklearn.model_selection import KFold
 
@@ -47,12 +46,21 @@ from sklearn.model_selection import KFold
 # (기본적으로 데이터를 셔플하지 않고 순차적으로 분할)
 # KFold 타입의 객체를 cross_val_score 함수의 cv 매개변수로
 # 사용할 수 있음
-cv = KFold(n_splits=3)
+cv = KFold(n_splits=3) #3개로 분할하겠다는 뜻
 
 cv_scores=cross_val_score(
             model, X, y,
             cv=cv, scoring='accuracy', n_jobs=-1)
 
+# y 값
+# array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#        0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+#        1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+#        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+#        2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2])
+#KFold는 순차적으로 자름 그래서 0나옴. 강의 2시간 21분쯤 나옴
 print(f'(CV) scores : \n{cv_scores}')
 print(f'(CV) scores mean : \n{cv_scores.mean()}')
 
@@ -73,7 +81,8 @@ cv_scores=cross_val_score(
 print(f'(CV) scores : \n{cv_scores}')
 print(f'(CV) scores mean : \n{cv_scores.mean()}')
 
-# 이거 시험에 나올 듯 하니 확인
+
+#시험에 나올거임
 from sklearn.model_selection import StratifiedKFold
 
 

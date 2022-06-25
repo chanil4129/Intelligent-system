@@ -22,6 +22,7 @@ print(X.shape)
 print(y.shape)
 
 # 전체 데이터를 훈련 및 테스트 세트로 분할
+# valid 데이터가 필요없음(교차검증할 때 train 데이터가 그 역할을 해주기 때문)
 X_train,X_test,y_train,y_test=train_test_split(
     X, y,
     test_size=0.2,
@@ -32,6 +33,7 @@ X_train,X_test,y_train,y_test=train_test_split(
 best_score = None
 best_params = {}
 
+# for문을 줄여보자=>4번째 스크립트
 for lr in [0.1, 0.2, 0.3, 1., 0.01] :
     for md in [1, 2, 3] :
         for ne in [100, 200, 300, 10, 50] :
@@ -70,7 +72,9 @@ print(f'best_score : {best_score}')
 print(f'best_params : \n{best_params}')
 
 # 가장 높은 score 를 기록한 하이퍼 파라메터를 사용하여
-# 모델을 생성한 후, 테스트 데이터를 사용해 평가
+# 모델을 생성한 후, 테스트 데이터를 사용해 평가.
+# dictionary 키와 벨류가 있는건데, 함수를 전달할 때 
+# **를 입력하면 dicionary 키값으로 다 풀어서 매개변수로 전달 시켜줌
 best_model = GradientBoostingClassifier(**best_params).fit(X_train, y_train)
 
 score = best_model.score(X_train, y_train)

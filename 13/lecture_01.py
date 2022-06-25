@@ -21,8 +21,8 @@
 #   하나의 군집으로 처리하는 기법
 
 # 비지도 학습 시 유의사항
-# - 비지도 학습의 결과는 100% 신뢰할 수 없음
-# - 매번 실행될 때마다 결과는 변경될 수 있음
+# - 비지도 학습의 결과는 100% 신뢰할 수 없음(정답 데이터가 없는 상태에서 일단 테스트해본것이기 때문)
+# - 매번 실행될 때마다 결과는 변경될 수 (랜덤이기 때문)
 
 # 군집 분석을 활용하여 데이터의 클러스터링 
 # 처리과정을 확인
@@ -31,15 +31,24 @@
 from sklearn.datasets import make_blobs
 X, y = make_blobs(n_samples=150,
                   n_features=2,
-                  centers=3,
-                  cluster_std=0.5,
-                  shuffle=True,
+                  centers=3, # 몇 개의 군집?        
+                  cluster_std=0.5, # 보기 편하게 하기 위해 있는거
+                  shuffle=True, # 데이터 섞기
                   random_state=0)
 
 print(X[:10])
 print(y[:10])
 
 import matplotlib.pyplot as plt
+
+
+# 산점도
+plt.scatter(X[:, 0], X[:, 1], c='white',
+            marker='o', edgecolor='black',
+            s=50) # s는 반지름 크기
+plt.grid() # 옵션값
+plt.show() # 보여주기
+
 
 plt.scatter(X[:, 0], X[:, 1], 
             c='white', # color
@@ -49,6 +58,7 @@ plt.scatter(X[:, 0], X[:, 1],
 plt.grid() # 선
 plt.show() # 출력
 # y값을 알고 있으니깐 군집 만들었던거임. y모를 때 예시는 아래
+
 
 # 최근접 이웃 알고리즘???
 # 군집분석을 위한 클래스

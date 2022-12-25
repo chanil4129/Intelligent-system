@@ -6,7 +6,7 @@
 # 3. 실행매개변수(placeHolder)
 
 import tensorflow as tf
-
+print(tf.__version__)
 # 텐서플로우의 상수 텐서 선언
 # tf.constant를 사용하여 정의할 수 있음
 # 프로그램의 진행 중 값의 변경이 허용되지 않는 변수
